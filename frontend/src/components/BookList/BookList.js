@@ -15,7 +15,10 @@ const BookList = () => {
 		const matchesTitle = book.title
 			.toLowerCase()
 			.includes(titleFilter.toLowerCase())
-		return matchesTitle
+		const matchesAuthor = book.author
+			.toLowerCase()
+			.includes(titleFilter.toLowerCase())
+		return matchesTitle || matchesAuthor
 	})
 
 	return (
