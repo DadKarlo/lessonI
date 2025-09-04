@@ -31,7 +31,8 @@ const BookList = () => {
 					{filteredBooks.map((book, i) => (
 						<li key={book.id}>
 							<div className="book-info">
-								{++i}. <strong>{book.title}</strong> and {book.author}
+								{++i}. <strong>{book.title}</strong> and {book.author} (
+								{book.name})
 							</div>
 							<div className="book-actions">
 								<button onClick={() => handleDeleteBook(book.id)}>

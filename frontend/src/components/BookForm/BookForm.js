@@ -18,6 +18,7 @@ const BookForm = () => {
 			const book = {
 				title,
 				author,
+				name: 'Factual',
 				id: uuidv4(),
 			}
 			dispatch(addBook(book))
@@ -30,6 +31,7 @@ const BookForm = () => {
 	const eee = (book) => {
 		return {
 			...book,
+			name: 'API get',
 			id: uuidv4(),
 		}
 	}
