@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import './BookForm.css'
+import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 import { addBook } from '../../redux/books/actionCreators'
 
@@ -23,6 +24,24 @@ const BookForm = () => {
 
 			setAuthor('')
 			setTitle('')
+		}
+	}
+
+	const eee = (book) => {
+		return {
+			...book,
+			id: uuidv4(),
+		}
+	}
+
+	const handleAddBookAPI = async () => {
+		try {
+			const res = await axios.get('http://localhost:4000/random-book')
+			if (res?.data?.title && res?.data?.author) {
+				dispatch(addBook(eee(res.data)))
+			}
+		} catch (error) {
+			console.log(error)
 		}
 	}
 
@@ -49,6 +68,9 @@ const BookForm = () => {
 					/>
 				</div>
 				<button type="submit">Add Book</button>
+				<button type="button" onClick={handleAddBookAPI}>
+					API Book
+				</button>
 			</form>
 		</div>
 	)
