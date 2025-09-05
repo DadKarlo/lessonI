@@ -1,8 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid'
 
 const initialState = {
 	title: '',
 }
+
+export const createBookWithID = (book) => {
+	return {
+		...book,
+		name: 'API get',
+		id: uuidv4(),
+	}
+}
+
+export const fetchBook = createAsyncThunk('fetchBook', async () => {
+	const res = await axios.get('http://localhost:4000/random-book')
+	return res.data
+})
 
 const filterSlice = createSlice({
 	name: 'filter',
@@ -12,7 +27,7 @@ const filterSlice = createSlice({
 			return { ...state, title: action.payload }
 			// state.title = action.payload
 		},
-		resetFilters: (state) => {
+		resetFilters: () => {
 			return initialState
 			// state.title = ''
 		},

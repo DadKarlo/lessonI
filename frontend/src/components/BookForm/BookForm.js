@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import './BookForm.css'
+import { createBookWithID, fetchBook } from '../../redux/slices/filterSlice'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 import { addBook } from '../../redux/books/actionCreators'
@@ -28,24 +29,20 @@ const BookForm = () => {
 		}
 	}
 
-	const eee = (book) => {
-		return {
-			...book,
-			name: 'API get',
-			id: uuidv4(),
-		}
+	const handleAddBookAPI = () => {
+		dispatch(fetchBook())
 	}
 
-	const handleAddBookAPI = async () => {
-		try {
-			const res = await axios.get('http://localhost:4000/random-book')
-			if (res?.data?.title && res?.data?.author) {
-				dispatch(addBook(eee(res.data)))
-			}
-		} catch (error) {
-			console.log(error)
-		}
-	}
+	// const handleAddBookAPI = async () => {
+	// 	try {
+	// 		const res = await axios.get('http://localhost:4000/random-book')
+	// 		if (res?.data?.title && res?.data?.author) {
+	// 			dispatch(addBook(createBookWithID(res.data)))
+	// 		}
+	// 	} catch (error) {
+	// 		console.log(error)
+	// 	}
+	// }
 
 	return (
 		<div className="app-block book-form">
